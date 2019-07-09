@@ -3,12 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		0FFCD09122CE53ED00724200 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FFCD09022CE53ED00724200 /* AppDelegate.swift */; };
-		0FFCD09922CE53ED00724200 /* TVShows.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0FFCD09722CE53ED00724200 /* TVShows.xcdatamodeld */; };
 		0FFCD09B22CE53F000724200 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0FFCD09A22CE53F000724200 /* Assets.xcassets */; };
 		0FFCD09E22CE53F000724200 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FFCD09C22CE53F000724200 /* LaunchScreen.storyboard */; };
 		0FFCD0A722CF802D00724200 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FFCD0A622CF802D00724200 /* Login.storyboard */; };
@@ -19,7 +18,6 @@
 /* Begin PBXFileReference section */
 		0FFCD08D22CE53ED00724200 /* TVShows.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TVShows.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FFCD09022CE53ED00724200 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0FFCD09822CE53ED00724200 /* TVShows.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TVShows.xcdatamodel; sourceTree = "<group>"; };
 		0FFCD09A22CE53F000724200 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0FFCD09D22CE53F000724200 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0FFCD09F22CE53F000724200 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -68,7 +66,6 @@
 				0FFCD09A22CE53F000724200 /* Assets.xcassets */,
 				0FFCD09C22CE53F000724200 /* LaunchScreen.storyboard */,
 				0FFCD09F22CE53F000724200 /* Info.plist */,
-				0FFCD09722CE53ED00724200 /* TVShows.xcdatamodeld */,
 			);
 			path = TVShows;
 			sourceTree = "<group>";
@@ -88,7 +85,6 @@
 				FB0608BE7C01E5700D96F8FC /* Pods-TVShows.debug.xcconfig */,
 				E27FE951295D7939CC4500DD /* Pods-TVShows.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -216,7 +212,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0FFCD0AB22CF874500724200 /* LoginViewController.swift in Sources */,
-				0FFCD09922CE53ED00724200 /* TVShows.xcdatamodeld in Sources */,
 				0FFCD09122CE53ED00724200 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -409,19 +404,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		0FFCD09722CE53ED00724200 /* TVShows.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				0FFCD09822CE53ED00724200 /* TVShows.xcdatamodel */,
-			);
-			currentVersion = 0FFCD09822CE53ED00724200 /* TVShows.xcdatamodel */;
-			path = TVShows.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 0FFCD08522CE53EC00724200 /* Project object */;
 }
