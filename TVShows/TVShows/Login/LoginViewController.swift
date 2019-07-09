@@ -32,7 +32,7 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func onBtnTap(_ sender: Any) {
-        if(activityIndicator.isAnimating) {
+        if activityIndicator.isAnimating {
             activityIndicator.stopAnimating()
             button.setTitle("Start!", for:UIControl.State.normal)
         } else {
