@@ -24,9 +24,7 @@ final class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        counterButton.layer.cornerRadius = counterButton.frame.height / 2
-        
-        activityIndicator.startAnimating()
+        setupUI()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { [weak self] in
             guard let indicator = self?.activityIndicator else { return }
@@ -49,5 +47,16 @@ final class LoginViewController: UIViewController {
         }
         tapCount += 1
         counterLabel.text = "Tap count: \(tapCount)"
+    }
+}
+
+// MARK: - Private UI setup
+
+private extension LoginViewController {
+    
+    func setupUI() {
+        counterButton.layer.cornerRadius = counterButton.frame.height / 2
+        activityIndicator.startAnimating()
+
     }
 }
