@@ -46,8 +46,8 @@
                     </view>
                     <connections>
                         <outlet property="activityIndicator" destination="XxF-3y-BEm" id="geB-ry-G1b"/>
-                        <outlet property="button" destination="nfd-eg-EO8" id="c63-42-zfJ"/>
-                        <outlet property="label" destination="FS7-4n-cat" id="P5F-nJ-cud"/>
+                        <outlet property="counterButton" destination="nfd-eg-EO8" id="c63-42-zfJ"/>
+                        <outlet property="counterLabel" destination="FS7-4n-cat" id="ppQ-Lv-G0v"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yZ9-af-OrV" userLabel="First Responder" sceneMemberID="firstResponder"/>

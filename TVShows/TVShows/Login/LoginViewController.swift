@@ -12,9 +12,9 @@ class LoginViewController: UIViewController {
     
     // MARK: - Outlets
     
-    @IBOutlet weak var label: UILabel!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var button: UIButton!
+    @IBOutlet private weak var counterLabel: UILabel!
+    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var counterButton: UIButton!
     
     // MARK: - Properties
     
@@ -24,7 +24,7 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        button.layer.cornerRadius = button.frame.height / 2
+        counterButton.layer.cornerRadius = counterButton.frame.height / 2
         
         activityIndicator.startAnimating()
         
@@ -32,7 +32,7 @@ class LoginViewController: UIViewController {
             guard let indicator = self?.activityIndicator else { return }
             if indicator.isAnimating {
                 indicator.stopAnimating()
-                self?.button.setTitle("Start!", for: UIControl.State.normal)
+                self?.counterButton.setTitle("Start!", for: UIControl.State.normal)
             }
         }
     }
@@ -42,12 +42,12 @@ class LoginViewController: UIViewController {
     @IBAction func onBtnTap(_ sender: Any) {
         if activityIndicator.isAnimating {
             activityIndicator.stopAnimating()
-            button.setTitle("Start!", for:UIControl.State.normal)
+            counterButton.setTitle("Start!", for:UIControl.State.normal)
         } else {
             activityIndicator.startAnimating()
-            button.setTitle("Stop!", for: UIControl.State.normal)
+            counterButton.setTitle("Stop!", for: UIControl.State.normal)
         }
         tapCount += 1
-        label.text = "Tap count: \(tapCount)"
+        counterLabel.text = "Tap count: \(tapCount)"
     }
 }
