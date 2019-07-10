@@ -32,20 +32,20 @@ final class LoginViewController: UIViewController {
             guard let indicator = self?.activityIndicator else { return }
             if indicator.isAnimating {
                 indicator.stopAnimating()
-                self?.counterButton.setTitle("Start!", for: UIControl.State.normal)
+                self?.counterButton.setTitle("Start!", for: .normal)
             }
         }
     }
     
     // MARK: - Actions
     
-    @IBAction func onBtnTap(_ sender: Any) {
+    @IBAction private func touchCounterButtonActionHandler(_ sender: UIButton) {
         if activityIndicator.isAnimating {
             activityIndicator.stopAnimating()
-            counterButton.setTitle("Start!", for:UIControl.State.normal)
+            sender.setTitle("Start!", for: .normal)
         } else {
             activityIndicator.startAnimating()
-            counterButton.setTitle("Stop!", for: UIControl.State.normal)
+            sender.setTitle("Stop!", for: .normal)
         }
         tapCount += 1
         counterLabel.text = "Tap count: \(tapCount)"

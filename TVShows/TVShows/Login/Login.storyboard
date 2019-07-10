@@ -26,7 +26,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="onBtnTap:" destination="OeL-CN-wOW" eventType="touchUpInside" id="jPc-pW-St2"/>
+                                    <action selector="touchCounterButtonActionHandler:" destination="OeL-CN-wOW" eventType="touchUpInside" id="cSe-wd-cZb"/>
                                 </connections>
                             </button>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="XxF-3y-BEm">
