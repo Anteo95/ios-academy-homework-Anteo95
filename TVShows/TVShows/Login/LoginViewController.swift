@@ -8,49 +8,64 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController {
     
-    @IBOutlet weak var label: UILabel!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var button: UIButton!
+    // MARK: - Outlets
     
-    var tapCount = 0
+    @IBOutlet private weak var loginButton: UIButton!
+    @IBOutlet private weak var scrollView: UIScrollView!
+    
+    // MARK: - Lifecycle methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        button.layer.cornerRadius = button.frame.height / 2
-        
-        activityIndicator.startAnimating()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) { [weak self] in
-            guard let indicator = self?.activityIndicator else { return }
-            if indicator.isAnimating {
-                indicator.stopAnimating()
-                self?.button.setTitle("Start!", for: UIControl.State.normal)
-            }
-        }
+        setupUI()
+        subscribeToKeyboardNotifications()
     }
     
-    @IBAction func onBtnTap(_ sender: Any) {
-        if activityIndicator.isAnimating {
-            activityIndicator.stopAnimating()
-            button.setTitle("Start!", for:UIControl.State.normal)
-        } else {
-            activityIndicator.startAnimating()
-            button.setTitle("Stop!", for: UIControl.State.normal)
-        }
-        tapCount += 1
-        label.text = "Tap count: \(tapCount)"
-    }
+    // MARK: - Actions
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction private func touchRememberMeButtonActionHandler(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
     }
-    */
-
 }
+
+// MARK: - Private UI setup
+
+private extension LoginViewController {
+    
+    func setupUI() {
+        loginButton.layer.cornerRadius = 5
+    }
+}
+
+// MARK: - Private Functions
+
+private extension LoginViewController {
+    
+    func subscribeToKeyboardNotifications() {
+        let notificationCenter = NotificationCenter.default
+        
+        notificationCenter.addObserver(self, selector: #selector(adjustScrollViewForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        notificationCenter.addObserver(self, selector: #selector(adjustScrollViewForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+    }
+    
+    @objc func adjustScrollViewForKeyboard(notification: Notification) {
+        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        
+        let keyboardRectangle = keyboardFrame.cgRectValue
+        let keyboardHeight = keyboardRectangle.height
+
+        if notification.name == UIResponder.keyboardWillHideNotification {
+            scrollView.contentInset = .zero
+        } else {
+            scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight, right: 0)
+        }
+        
+        scrollView.scrollIndicatorInsets = scrollView.contentInset
+        
+    }
+}
+
+
