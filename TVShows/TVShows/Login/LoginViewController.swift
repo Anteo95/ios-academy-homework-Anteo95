@@ -18,7 +18,7 @@ final class LoginViewController: UIViewController {
     
     // MARK: - Properties
     
-    var tapCount = 0
+    private var numberOfClicks = 0
     
     // MARK: - Lifecycle methods
     
@@ -45,8 +45,8 @@ final class LoginViewController: UIViewController {
             activityIndicator.startAnimating()
             sender.setTitle("Stop!", for: .normal)
         }
-        tapCount += 1
-        counterLabel.text = "Tap count: \(tapCount)"
+        numberOfClicks += 1
+        counterLabel.text = "Tap count: \(numberOfClicks)"
     }
 }
 
