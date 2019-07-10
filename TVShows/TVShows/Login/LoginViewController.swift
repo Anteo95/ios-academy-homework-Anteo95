@@ -10,11 +10,17 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
+    // MARK: - Outlets
+    
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var button: UIButton!
     
+    // MARK: - Properties
+    
     var tapCount = 0
+    
+    // MARK: - Lifecycle methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +37,8 @@ class LoginViewController: UIViewController {
         }
     }
     
+    // MARK: - Actions
+    
     @IBAction func onBtnTap(_ sender: Any) {
         if activityIndicator.isAnimating {
             activityIndicator.stopAnimating()
@@ -42,15 +50,4 @@ class LoginViewController: UIViewController {
         tapCount += 1
         label.text = "Tap count: \(tapCount)"
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
