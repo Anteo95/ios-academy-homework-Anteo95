@@ -28,6 +28,15 @@ final class LoginViewController: UIViewController {
     @IBAction private func touchRememberMeButtonActionHandler(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
     }
+    
+    @IBAction private func touchLoginButtonActionHandler() {
+        pushHomeViewController()
+    }
+    
+    @IBAction private func touchCreateAccountButtonActionHandler() {
+        pushHomeViewController()
+    }
+    
 }
 
 // MARK: - Private UI setup
@@ -65,6 +74,12 @@ private extension LoginViewController {
         
         scrollView.scrollIndicatorInsets = scrollView.contentInset
         
+    }
+    
+    func pushHomeViewController() {
+        let storyboard = UIStoryboard(name: "Home", bundle: nil)
+        let homeViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+        navigationController?.pushViewController(homeViewController, animated: true)
     }
 }
 

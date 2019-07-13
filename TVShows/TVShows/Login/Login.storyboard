@@ -125,6 +125,7 @@
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <connections>
+                                                            <action selector="touchLoginButtonActionHandler" destination="OeL-CN-wOW" eventType="touchUpInside" id="IZt-ZP-vDd"/>
                                                             <action selector="touchRememberMeButtonActionHandler:" destination="OeL-CN-wOW" eventType="touchUpInside" id="QMR-jm-wPI"/>
                                                         </connections>
                                                     </button>
@@ -154,6 +155,9 @@
                                                                 </fragment>
                                                             </attributedString>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="touchCreateAccountButtonActionHandler" destination="OeL-CN-wOW" eventType="touchUpInside" id="byu-v8-fDK"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
