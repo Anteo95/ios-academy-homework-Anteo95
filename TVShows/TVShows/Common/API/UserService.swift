@@ -25,7 +25,7 @@ final class UserService {
             "password": password
         ]
         Alamofire
-            .request("https://api.infinum.academy/api/users",
+            .request(Constants.API.baseURL + "/users",
                      method: .post,
                      parameters: parameters,
                      encoding: JSONEncoding.default)
@@ -42,7 +42,7 @@ final class UserService {
         ]
         Alamofire
             .request(
-            "https://api.infinum.academy/api/users/sessions",
+            Constants.API.baseURL + "/users/sessions",
             method: .post,
             parameters: parameters,
             encoding: JSONEncoding.default)
