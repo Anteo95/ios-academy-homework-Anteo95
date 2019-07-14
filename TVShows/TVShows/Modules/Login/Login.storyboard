@@ -200,7 +200,9 @@
                     <navigationItem key="navigationItem" id="8Ka-Gd-3v3"/>
                     <connections>
                         <outlet property="loginButton" destination="cKa-gn-fGp" id="YH8-qw-CwJ"/>
+                        <outlet property="passwordTextField" destination="aZx-jj-BM4" id="It6-Oz-GWU"/>
                         <outlet property="scrollView" destination="EZI-ue-Whc" id="o8v-RV-ZrD"/>
+                        <outlet property="usernameTextField" destination="Rzu-O4-iRN" id="1YF-Ox-2bb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yZ9-af-OrV" userLabel="First Responder" sceneMemberID="firstResponder"/>

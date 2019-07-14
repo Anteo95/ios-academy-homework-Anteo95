@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 final class LoginViewController: UIViewController {
     
@@ -14,6 +15,13 @@ final class LoginViewController: UIViewController {
     
     @IBOutlet private weak var loginButton: UIButton!
     @IBOutlet private weak var scrollView: UIScrollView!
+    @IBOutlet private weak var usernameTextField: UITextField!
+    @IBOutlet private weak var passwordTextField: UITextField!
+    
+    // MARK: - Private properties
+    
+    private var loginData: LoginData? = nil
+    private var user: User? = nil
     
     // MARK: - Lifecycle methods
     
@@ -30,11 +38,59 @@ final class LoginViewController: UIViewController {
     }
     
     @IBAction private func touchLoginButtonActionHandler() {
-        pushHomeViewController()
+        guard let username = usernameTextField.text, let password = passwordTextField.text else { return }
+        let userService = UserService()
+        
+        SVProgressHUD.show()
+        userService.login(with: username, password: password) { [weak self] dataResponse in
+            SVProgressHUD.dismiss()
+            
+            switch dataResponse.result {
+            case .success(let response):
+                self?.loginData = response
+                self?.navigateToHomeScreen()
+                
+            case .failure(let error):
+                self?.showAlert(title: "Login error", message: "Wrong username or password")
+                print("Login error: \(error)")
+            }
+        }
     }
     
     @IBAction private func touchCreateAccountButtonActionHandler() {
-        pushHomeViewController()
+        guard let username = usernameTextField.text, let password = passwordTextField.text else { return }
+        if username.isEmpty || password.isEmpty {
+            showAlert(title: "Registration error",  message: "Please enter username and password")
+            return
+        }
+        let userService = UserService()
+        
+        SVProgressHUD.show()
+        userService.register(with: username, password: password) { [weak self] registerResponse in
+            SVProgressHUD.dismiss()
+            
+            switch registerResponse.result {
+            case .success(let response):
+                self?.user = response
+                
+                SVProgressHUD.show()
+                userService.login(with: username, password: password) { [weak self] loginResponse in
+                    SVProgressHUD.dismiss()
+                    
+                    switch loginResponse.result {
+                    case .success(let response):
+                        self?.loginData = response
+                        self?.navigateToHomeScreen()
+                        
+                    case .failure(let error):
+                        print("Login error: \(error)")
+                    }
+                }
+                
+            case .failure(let error):
+                print("Registration error: \(error)")
+            }
+        }
     }
     
 }
@@ -76,10 +132,16 @@ private extension LoginViewController {
         
     }
     
-    func pushHomeViewController() {
+    func navigateToHomeScreen() {
         let storyboard = UIStoryboard(name: "Home", bundle: nil)
         let homeViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
         navigationController?.pushViewController(homeViewController, animated: true)
+    }
+    
+    func showAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
+        present(alertController, animated:  true, completion: nil)
     }
 }
 
