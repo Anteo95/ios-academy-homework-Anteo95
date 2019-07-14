@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F781BDD22DA4E8E0024544D /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F781BDC22DA4E8E0024544D /* UserService.swift */; };
+		0F781BE222DA57A80024544D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F781BE122DA57A80024544D /* User.swift */; };
 		0FDDB9E122D9F71D00C33340 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FDDB9E022D9F71D00C33340 /* Home.storyboard */; };
 		0FDDB9E322D9F74500C33340 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDDB9E222D9F74500C33340 /* HomeViewController.swift */; };
 		0FFCD09122CE53ED00724200 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FFCD09022CE53ED00724200 /* AppDelegate.swift */; };
@@ -18,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0F781BDC22DA4E8E0024544D /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		0F781BE122DA57A80024544D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		0FDDB9E022D9F71D00C33340 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
 		0FDDB9E222D9F74500C33340 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		0FFCD08D22CE53ED00724200 /* TVShows.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TVShows.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +48,56 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0F781BDE22DA54F40024544D /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				0F781BDF22DA54FE0024544D /* API */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		0F781BDF22DA54FE0024544D /* API */ = {
+			isa = PBXGroup;
+			children = (
+				0F781BDC22DA4E8E0024544D /* UserService.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		0F781BE022DA552D0024544D /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				0FFCD0A522CF800800724200 /* Login */,
+				0FDDB9DF22D9F43000C33340 /* Home */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		0F781BE322DAA3630024544D /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				0FFCD09022CE53ED00724200 /* AppDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		0F781BE422DB08910024544D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0FFCD09A22CE53F000724200 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		0F781BE522DB08BC0024544D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0FFCD09F22CE53F000724200 /* Info.plist */,
+				0FFCD09C22CE53F000724200 /* LaunchScreen.storyboard */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		0FDDB9DF22D9F43000C33340 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -74,12 +128,11 @@
 		0FFCD08F22CE53ED00724200 /* TVShows */ = {
 			isa = PBXGroup;
 			children = (
-				0FDDB9DF22D9F43000C33340 /* Home */,
-				0FFCD0A522CF800800724200 /* Login */,
-				0FFCD09022CE53ED00724200 /* AppDelegate.swift */,
-				0FFCD09A22CE53F000724200 /* Assets.xcassets */,
-				0FFCD09C22CE53F000724200 /* LaunchScreen.storyboard */,
-				0FFCD09F22CE53F000724200 /* Info.plist */,
+				0F781BE522DB08BC0024544D /* Supporting Files */,
+				0F781BE322DAA3630024544D /* Application */,
+				0F781BE022DA552D0024544D /* Modules */,
+				0F781BDE22DA54F40024544D /* Common */,
+				0F781BE422DB08910024544D /* Resources */,
 			);
 			path = TVShows;
 			sourceTree = "<group>";
@@ -89,6 +142,7 @@
 			children = (
 				0FFCD0A622CF802D00724200 /* Login.storyboard */,
 				0FFCD0AA22CF874500724200 /* LoginViewController.swift */,
+				0F781BE122DA57A80024544D /* User.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -229,6 +283,8 @@
 				0FFCD0AB22CF874500724200 /* LoginViewController.swift in Sources */,
 				0FFCD09122CE53ED00724200 /* AppDelegate.swift in Sources */,
 				0FDDB9E322D9F74500C33340 /* HomeViewController.swift in Sources */,
+				0F781BE222DA57A80024544D /* User.swift in Sources */,
+				0F781BDD22DA4E8E0024544D /* UserService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,7 +424,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = TVShows/Info.plist;
+				INFOPLIST_FILE = "TVShows/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -386,7 +442,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = TVShows/Info.plist;
+				INFOPLIST_FILE = "TVShows/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
