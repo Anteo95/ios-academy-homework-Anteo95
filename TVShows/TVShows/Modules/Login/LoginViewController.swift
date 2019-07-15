@@ -22,6 +22,7 @@ final class LoginViewController: UIViewController {
     
     private var loginData: LoginData? = nil
     private var user: User? = nil
+    private var userService = UserService()
     
     // MARK: - Lifecycle methods
     
@@ -47,19 +48,19 @@ final class LoginViewController: UIViewController {
             showAlert(title: "Login error", message: "Enter username and password")
             return
         }
-        let userService = UserService()
         
         SVProgressHUD.show()
         userService.login(with: username, password: password) { [weak self] loginResult in
-            SVProgressHUD.dismiss()
+            guard let self = self else { return }
             
+            SVProgressHUD.dismiss()
             switch loginResult {
             case .success(let value):
-                self?.loginData = value
-                self?.navigateToHomeScreen()
+                self.loginData = value
+                self.navigateToHomeScreen()
                 
             case .failure(let error):
-                self?.showAlert(title: "Login error", message: "Wrong username or password")
+                self.showAlert(title: "Login error", message: "Wrong username or password")
                 print("Login error: \(error)")
             }
         }
@@ -71,23 +72,25 @@ final class LoginViewController: UIViewController {
             showAlert(title: "Registration error",  message: "Please enter username and password")
             return
         }
-        let userService = UserService()
         
         SVProgressHUD.show()
         userService.register(with: username, password: password) { [weak self] registerResult in
+            guard let self = self else { return }
+            
             SVProgressHUD.dismiss()
             switch registerResult {
             case .success(let value):
-                self?.user = value
+                self.user = value
                 
                 SVProgressHUD.show()
-                userService.login(with: username, password: password) { [weak self] loginResult in
-                    SVProgressHUD.dismiss()
+                self.userService.login(with: username, password: password) { [weak self] loginResult in
+                    guard let self = self else { return }
                     
+                    SVProgressHUD.dismiss()
                     switch loginResult {
                     case .success(let value):
-                        self?.loginData = value
-                        self?.navigateToHomeScreen()
+                        self.loginData = value
+                        self.navigateToHomeScreen()
                         
                     case .failure(let error):
                         print("Login error: \(error)")
