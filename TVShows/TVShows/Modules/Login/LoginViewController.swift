@@ -38,7 +38,15 @@ final class LoginViewController: UIViewController {
     }
     
     @IBAction private func touchLoginButtonActionHandler() {
-        guard let username = usernameTextField.text, let password = passwordTextField.text else { return }
+        guard
+            let username = usernameTextField.text,
+            let password = passwordTextField.text,
+            !username.isEmpty,
+            !password.isEmpty
+        else {
+            showAlert(title: "Login error", message: "Enter username and password")
+            return
+        }
         let userService = UserService()
         
         SVProgressHUD.show()
