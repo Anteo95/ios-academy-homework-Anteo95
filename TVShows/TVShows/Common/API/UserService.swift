@@ -30,7 +30,7 @@ final class UserService {
                      parameters: parameters,
                      encoding: JSONEncoding.default)
             .validate()
-            .responseDecodableObject(keyPath: "data", decoder: JSONDecoder(), completionHandler: completionHandler)
+            .responseDecodableObject(keyPath: "data", completionHandler: completionHandler)
     }
     
     // MARK: - Login API request
@@ -41,14 +41,11 @@ final class UserService {
             "password": password
         ]
         Alamofire
-            .request(
-            Constants.API.baseURL + "/users/sessions",
-            method: .post,
-            parameters: parameters,
-            encoding: JSONEncoding.default)
+            .request(Constants.API.baseURL + "/users/sessions",
+                     method: .post,
+                     parameters: parameters,
+                     encoding: JSONEncoding.default)
             .validate()
-            .responseDecodableObject(keyPath: "data", decoder: JSONDecoder(), completionHandler: completionHandler)
+            .responseDecodableObject(keyPath: "data", completionHandler: completionHandler)
     }
 }
-
-
