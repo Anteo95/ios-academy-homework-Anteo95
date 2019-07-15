@@ -42,12 +42,12 @@ final class LoginViewController: UIViewController {
         let userService = UserService()
         
         SVProgressHUD.show()
-        userService.login(with: username, password: password) { [weak self] dataResponse in
+        userService.login(with: username, password: password) { [weak self] loginResult in
             SVProgressHUD.dismiss()
             
-            switch dataResponse.result {
-            case .success(let response):
-                self?.loginData = response
+            switch loginResult {
+            case .success(let value):
+                self?.loginData = value
                 self?.navigateToHomeScreen()
                 
             case .failure(let error):
@@ -66,20 +66,19 @@ final class LoginViewController: UIViewController {
         let userService = UserService()
         
         SVProgressHUD.show()
-        userService.register(with: username, password: password) { [weak self] registerResponse in
+        userService.register(with: username, password: password) { [weak self] registerResult in
             SVProgressHUD.dismiss()
-            
-            switch registerResponse.result {
-            case .success(let response):
-                self?.user = response
+            switch registerResult {
+            case .success(let value):
+                self?.user = value
                 
                 SVProgressHUD.show()
-                userService.login(with: username, password: password) { [weak self] loginResponse in
+                userService.login(with: username, password: password) { [weak self] loginResult in
                     SVProgressHUD.dismiss()
                     
-                    switch loginResponse.result {
-                    case .success(let response):
-                        self?.loginData = response
+                    switch loginResult {
+                    case .success(let value):
+                        self?.loginData = value
                         self?.navigateToHomeScreen()
                         
                     case .failure(let error):

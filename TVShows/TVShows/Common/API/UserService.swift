@@ -14,8 +14,8 @@ final class UserService {
     
     // MARK: - Typealiases
     
-    typealias RegisterResponseBlock = (DataResponse<User>) -> Void
-    typealias LoginResponseBlock = (DataResponse<LoginData>) -> Void
+    typealias RegisterResponseBlock = (Result<User>) -> Void
+    typealias LoginResponseBlock = (Result<LoginData>) -> Void
     
     // MARK: - Register API request
     
@@ -30,7 +30,9 @@ final class UserService {
                      parameters: parameters,
                      encoding: JSONEncoding.default)
             .validate()
-            .responseDecodableObject(keyPath: "data", completionHandler: completionHandler)
+            .responseDecodableObject(keyPath: "data") { dataResponse in
+                completionHandler(dataResponse.result)
+            }
     }
     
     // MARK: - Login API request
@@ -46,6 +48,8 @@ final class UserService {
                      parameters: parameters,
                      encoding: JSONEncoding.default)
             .validate()
-            .responseDecodableObject(keyPath: "data", completionHandler: completionHandler)
+            .responseDecodableObject(keyPath: "data") { dataResponse in
+                completionHandler(dataResponse.result)
+            }
     }
 }
