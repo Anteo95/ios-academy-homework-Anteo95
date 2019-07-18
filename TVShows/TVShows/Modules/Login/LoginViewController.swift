@@ -57,7 +57,7 @@ final class LoginViewController: UIViewController {
             switch loginResult {
             case .success(let value):
                 self.loginData = value
-                self.navigateToHomeScreen()
+                self.navigateToHomeScreen(loginData: value)
                 
             case .failure(let error):
                 self.showAlert(title: "Login error", message: "Wrong username or password")
@@ -90,7 +90,7 @@ final class LoginViewController: UIViewController {
                     switch loginResult {
                     case .success(let value):
                         self.loginData = value
-                        self.navigateToHomeScreen()
+                        self.navigateToHomeScreen(loginData: value)
                         
                     case .failure(let error):
                         print("Login error: \(error)")

@@ -10,10 +10,11 @@ import UIKit
 
 extension UIViewController {
     
-    func navigateToHomeScreen() {
+    func navigateToHomeScreen(loginData: LoginData) {
         let storyboard = UIStoryboard(name: "Home", bundle: nil)
         let homeViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
-        navigationController?.pushViewController(homeViewController, animated: true)
+        homeViewController.loginData = loginData
+        navigationController?.setViewControllers([homeViewController], animated: true)
     }
     
     func showAlert(title: String, message: String) {
