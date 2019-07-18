@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F21C94022DF44D600E4F5AF /* ShowRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F21C93F22DF44D600E4F5AF /* ShowRouter.swift */; };
+		0F21C94222DF462900E4F5AF /* Show.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F21C94122DF462900E4F5AF /* Show.swift */; };
+		0F21C94522DF5D9100E4F5AF /* TVShowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F21C94422DF5D9100E4F5AF /* TVShowTableViewCell.swift */; };
+		0F21C94722DFA32E00E4F5AF /* ShowService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F21C94622DFA32E00E4F5AF /* ShowService.swift */; };
 		0F781BDD22DA4E8E0024544D /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F781BDC22DA4E8E0024544D /* UserService.swift */; };
 		0F781BE222DA57A80024544D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F781BE122DA57A80024544D /* User.swift */; };
 		0F781BE722DB195B0024544D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F781BE622DB195B0024544D /* Constants.swift */; };
@@ -22,6 +26,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0F21C93F22DF44D600E4F5AF /* ShowRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowRouter.swift; sourceTree = "<group>"; };
+		0F21C94122DF462900E4F5AF /* Show.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Show.swift; sourceTree = "<group>"; };
+		0F21C94422DF5D9100E4F5AF /* TVShowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowTableViewCell.swift; sourceTree = "<group>"; };
+		0F21C94622DFA32E00E4F5AF /* ShowService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowService.swift; sourceTree = "<group>"; };
 		0F781BDC22DA4E8E0024544D /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		0F781BE122DA57A80024544D /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		0F781BE622DB195B0024544D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -52,6 +60,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0F21C94322DF5D7A00E4F5AF /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				0F21C94422DF5D9100E4F5AF /* TVShowTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		0F21C94822E09D7600E4F5AF /* Routers */ = {
+			isa = PBXGroup;
+			children = (
+				0F21C93F22DF44D600E4F5AF /* ShowRouter.swift */,
+			);
+			path = Routers;
+			sourceTree = "<group>";
+		};
 		0F781BDE22DA54F40024544D /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -64,7 +88,9 @@
 		0F781BDF22DA54FE0024544D /* API */ = {
 			isa = PBXGroup;
 			children = (
+				0F21C94822E09D7600E4F5AF /* Routers */,
 				0F781BDC22DA4E8E0024544D /* UserService.swift */,
+				0F21C94622DFA32E00E4F5AF /* ShowService.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -115,8 +141,10 @@
 		0FDDB9DF22D9F43000C33340 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				0F21C94322DF5D7A00E4F5AF /* Cells */,
 				0FDDB9E022D9F71D00C33340 /* Home.storyboard */,
 				0FDDB9E222D9F74500C33340 /* HomeViewController.swift */,
+				0F21C94122DF462900E4F5AF /* Show.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -296,11 +324,15 @@
 			files = (
 				0FFCD0AB22CF874500724200 /* LoginViewController.swift in Sources */,
 				0FFCD09122CE53ED00724200 /* AppDelegate.swift in Sources */,
+				0F21C94522DF5D9100E4F5AF /* TVShowTableViewCell.swift in Sources */,
+				0F21C94022DF44D600E4F5AF /* ShowRouter.swift in Sources */,
 				0FDDB9E322D9F74500C33340 /* HomeViewController.swift in Sources */,
 				0F781BE222DA57A80024544D /* User.swift in Sources */,
 				0F781BDD22DA4E8E0024544D /* UserService.swift in Sources */,
 				0FAF654222DD4A5C009906A2 /* UIViewController.swift in Sources */,
 				0F781BE722DB195B0024544D /* Constants.swift in Sources */,
+				0F21C94722DFA32E00E4F5AF /* ShowService.swift in Sources */,
+				0F21C94222DF462900E4F5AF /* Show.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
