@@ -16,8 +16,6 @@ final class HomeViewController: UIViewController {
     
     @IBOutlet private weak var showsTableView: UITableView!
     
-    var loginData: LoginData? = nil
-    
     // MARK: - Private properties
     
     private var items: [Show] = []

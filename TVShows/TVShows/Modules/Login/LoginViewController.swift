@@ -20,7 +20,6 @@ final class LoginViewController: UIViewController {
     
     // MARK: - Private properties
     
-    private var loginData: LoginData? = nil
     private var user: User? = nil
     private var userService = UserService()
     
@@ -56,8 +55,8 @@ final class LoginViewController: UIViewController {
             SVProgressHUD.dismiss()
             switch loginResult {
             case .success(let value):
-                self.loginData = value
-                self.navigateToHomeScreen(loginData: value)
+                SessionManager.attachAccessTokenAdapter(adapter: AccessTokenAdapter(accessToken: value.token))
+                self.navigateToHomeScreen()
                 
             case .failure(let error):
                 self.showAlert(title: "Login error", message: "Wrong username or password")
@@ -89,8 +88,8 @@ final class LoginViewController: UIViewController {
                     SVProgressHUD.dismiss()
                     switch loginResult {
                     case .success(let value):
-                        self.loginData = value
-                        self.navigateToHomeScreen(loginData: value)
+                        SessionManager.attachAccessTokenAdapter(adapter: AccessTokenAdapter(accessToken: value.token))
+                        self.navigateToHomeScreen()
                         
                     case .failure(let error):
                         print("Login error: \(error)")
