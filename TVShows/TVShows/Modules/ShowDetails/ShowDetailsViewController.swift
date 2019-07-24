@@ -66,10 +66,13 @@ extension ShowDetailsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = showDetailsTableView.dequeueReusableCell(withIdentifier: String(describing: ShowImageTableViewCell.self), for: indexPath) as! ShowImageTableViewCell
+            if let imageUrl = showDetails.imageUrl {
+                cell.configure(with: Constants.API.baseURL + imageUrl)
+            }
             return cell
         }
         else if indexPath.row == 1 {
-            let cell = showDetailsTableView.dequeueReusableCell(withIdentifier: String(describing: ShowDetailsTableViewCell.self), for: indexPath) as! ShowDetailsTableViewCell
+            let cell = showDetailsTableView.dequeueReusableCell(withIdentifier: String(describing: ShowDetailsTableViewCell.self), for: indexPath) as!  ShowDetailsTableViewCell
             let showDetailsTableViewCellItem = ShowDetailsTableViewCellItem(
                 title: showDetails.title,
                 description: showDetails.description,
@@ -89,7 +92,7 @@ extension ShowDetailsViewController: UITableViewDataSource {
 extension ShowDetailsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
-            return 128
+            return 256
         }
         else if indexPath.row == 1 {
             return UITableView.automaticDimension
@@ -123,7 +126,7 @@ private extension ShowDetailsViewController {
         let showImageTableCellNib = UINib.init(nibName: String(describing: ShowImageTableViewCell.self), bundle: nil)
         showDetailsTableView.register(showImageTableCellNib, forCellReuseIdentifier: String(describing: ShowImageTableViewCell.self))
         
-        showDetailsTableView.estimatedRowHeight = 64
+        showDetailsTableView.estimatedRowHeight = 48
         showDetailsTableView.rowHeight = UITableView.automaticDimension
         showDetailsTableView.tableFooterView = UIView()
         
