@@ -42,12 +42,7 @@ final class ShowDetailsViewController: UIViewController {
     }
     
     @IBAction private func touchAddEpisodeButtonActionHandler() {
-        let storyboard = UIStoryboard(name: "ShowDetails", bundle: nil)
-        let addEpisodeViewController = storyboard.instantiateViewController(withIdentifier: "AddEpisodeViewController") as! AddEpisodeViewController
-        addEpisodeViewController.delegate = self
-        addEpisodeViewController.id = id
-        let navigationController = UINavigationController(rootViewController: addEpisodeViewController)
-        present(navigationController, animated: true)
+        presentAddEpisodeScreen(showId: id, delegate: self)
     }
     
 }

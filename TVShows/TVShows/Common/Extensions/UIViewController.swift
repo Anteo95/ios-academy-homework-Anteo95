@@ -24,6 +24,15 @@ extension UIViewController {
         navigationController?.pushViewController(showDetailsViewController, animated: true)
     }
     
+    func presentAddEpisodeScreen(showId: String, delegate: AddEpisodeDelegate?) {
+        let storyboard = UIStoryboard(name: "ShowDetails", bundle: nil)
+        let addEpisodeViewController = storyboard.instantiateViewController(withIdentifier: "AddEpisodeViewController") as! AddEpisodeViewController
+        addEpisodeViewController.delegate = delegate
+        addEpisodeViewController.id = showId
+        let navigationController = UINavigationController(rootViewController: addEpisodeViewController)
+        present(navigationController, animated: true)
+    }
+    
     func showAlert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Ok", style: .default))
