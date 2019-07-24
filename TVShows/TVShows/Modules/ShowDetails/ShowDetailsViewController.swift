@@ -14,7 +14,11 @@ final class ShowDetailsViewController: UIViewController {
     
     // MARK: - Outlets
     
+    @IBOutlet private weak var addEpisodeButtonTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var backButtonLeadingConstraint: NSLayoutConstraint!
     @IBOutlet private weak var showDetailsTableView: UITableView!
+    @IBOutlet private weak var backButton: UIButton!
+    @IBOutlet private weak var addEpisodeButton: UIButton!
     
     // MARK: - Properties
     
@@ -36,14 +40,31 @@ final class ShowDetailsViewController: UIViewController {
     @IBAction private func touchBackButtonActionHandler() {
         navigationController?.popViewController(animated: true)
     }
+    
+    @IBAction private func touchAddEpisodeButtonActionHandler() {
+        let storyboard = UIStoryboard(name: "ShowDetails", bundle: nil)
+        let addEpisodeViewController = storyboard.instantiateViewController(withIdentifier: "AddEpisodeViewController") as! AddEpisodeViewController
+        addEpisodeViewController.delegate = self
+        addEpisodeViewController.id = id
+        let navigationController = UINavigationController(rootViewController: addEpisodeViewController)
+        present(navigationController, animated: true)
+    }
+    
+}
 
+// MARK: - AddEpisodeDelegate
+
+extension ShowDetailsViewController: AddEpisodeDelegate {
+    func didCreateEpisode(episode: Episode) {
+        items.append(episode)
+        showDetailsTableView.reloadData()
+    }
 }
 
 // MARK: - UITableView
 
 extension ShowDetailsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(items.count + 2)
         return items.count != 0 ? items.count + 2 : 0
     }
 
@@ -78,7 +99,19 @@ extension ShowDetailsViewController: UITableViewDelegate {
         else if indexPath.row == 1 {
             return UITableView.automaticDimension
         } 
-        return 64
+        return 48
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        animateButtonsOut()
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        animateButtonsIn()
     }
 }
 
@@ -142,5 +175,23 @@ private extension ShowDetailsViewController {
     }
 }
 
+// MARK: - Private animations
 
-
+private extension ShowDetailsViewController {
+    
+    func animateButtonsOut() {
+        addEpisodeButtonTrailingConstraint.constant = -addEpisodeButton.frame.width
+        backButtonLeadingConstraint.constant = -backButton.frame.width
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            self?.view.layoutIfNeeded()
+        }
+    }
+    
+    func animateButtonsIn() {
+        addEpisodeButtonTrailingConstraint.constant = 48
+        backButtonLeadingConstraint.constant = 16
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            self?.view.layoutIfNeeded()
+        }
+    }
+}
