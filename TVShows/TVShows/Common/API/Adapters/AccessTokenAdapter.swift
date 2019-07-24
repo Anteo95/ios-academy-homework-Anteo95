@@ -25,7 +25,7 @@ final class AccessTokenAdapter: RequestAdapter {
     
     func adapt(_ urlRequest: URLRequest) throws -> URLRequest {
         var urlRequest = urlRequest
-        urlRequest.setValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
+        urlRequest.setValue(accessToken, forHTTPHeaderField: "Authorization")
         return urlRequest
     }
 }
