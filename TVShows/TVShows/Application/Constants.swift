@@ -12,7 +12,7 @@ import UIKit
 struct Constants {
     
     struct API {
-        static let baseURL = "https://api.infinum.academy/api"
+        static let baseURL = "https://api.infinum.academy"
     }
     
     struct Colors {

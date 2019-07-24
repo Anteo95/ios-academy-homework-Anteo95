@@ -31,13 +31,13 @@ enum ShowRouter: URLRequestConvertible {
     var path: String {
         switch self {
         case .readShows:
-            return "/shows"
+            return "/api/shows"
         case .readShowDetails(let id):
-            return "/shows/\(id)"
+            return "/api/shows/\(id)"
         case .readShowEpisodes(let id):
-            return "/shows/\(id)/episodes"
+            return "/api/shows/\(id)/episodes"
         case .createShowEpisode:
-            return "/episodes"
+            return "/api/episodes"
         }
     }
     
