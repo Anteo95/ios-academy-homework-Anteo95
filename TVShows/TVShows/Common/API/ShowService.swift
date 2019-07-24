@@ -16,6 +16,7 @@ final class ShowService {
     typealias FetchShowsResponseBlock = (Result<[Show]>) -> Void
     typealias FetchShowDetailsResponseBlock = (Result<ShowDetails>) -> Void
     typealias FetchShowEpisodesResponseBlock = (Result<[Episode]>) -> Void
+    typealias CreateEpisodeResponseBlock = (Result<Episode>) -> Void
     
     // MARK: - API requests
     
@@ -40,6 +41,25 @@ final class ShowService {
     func fetchEpisodesForShow(with id: String, completionHandler: @escaping FetchShowEpisodesResponseBlock) {
         Alamofire
             .request(ShowRouter.readShowEpisodes(id: id))
+            .validate()
+            .responseDecodableObject(keyPath: "data") { dataResponse in
+                completionHandler(dataResponse.result)
+            }
+    }
+    
+    func createEpisodeForShow(with id: String, title: String, description: String, episodeNumber: String?, season: String?, completionHandler: @escaping  CreateEpisodeResponseBlock) {
+        let parameters: [String: Any] = [
+                "title": title,
+                "showId": id,
+                "description": description,
+                "episodeNumber": episodeNumber,
+                "season": season
+        ]
+        .filter { $0.value != nil && $0.value != "" }
+        .mapValues{ $0! }
+        
+        Alamofire
+            .request(ShowRouter.createShowEpisode(parameters: parameters))
             .validate()
             .responseDecodableObject(keyPath: "data") { dataResponse in
                 completionHandler(dataResponse.result)
