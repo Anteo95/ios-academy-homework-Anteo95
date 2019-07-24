@@ -20,7 +20,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="P8X-uZ-xE2">
-                        <rect key="frame" x="24" y="0.0" width="444" height="218.5"/>
+                        <rect key="frame" x="24" y="24" width="444" height="194.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Office" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dkM-wa-uqb">
                                 <rect key="frame" x="0.0" y="0.0" width="109" height="29"/>
@@ -50,7 +50,7 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="rhH-dC-6f9">
-                                <rect key="frame" x="0.0" y="139" width="104" height="55.5"/>
+                                <rect key="frame" x="0.0" y="139" width="104" height="31.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Episodes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zqM-7C-s6y">
                                         <rect key="frame" x="0.0" y="0.0" width="70" height="20.5"/>
@@ -67,7 +67,7 @@
                                 </subviews>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="clF-27-nvD">
-                                <rect key="frame" x="0.0" y="194.5" width="240" height="24"/>
+                                <rect key="frame" x="0.0" y="170.5" width="240" height="24"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="z2E-Fi-xFM"/>
@@ -78,7 +78,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="P8X-uZ-xE2" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="24" id="3af-ck-DDy"/>
-                    <constraint firstItem="P8X-uZ-xE2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="AhG-lm-pxZ"/>
+                    <constraint firstItem="P8X-uZ-xE2" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="24" id="AhG-lm-pxZ"/>
                     <constraint firstAttribute="bottom" secondItem="P8X-uZ-xE2" secondAttribute="bottom" id="r8A-3S-fWU"/>
                     <constraint firstAttribute="trailing" secondItem="P8X-uZ-xE2" secondAttribute="trailing" constant="24" id="vJB-5J-EAC"/>
                 </constraints>
