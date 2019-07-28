@@ -49,8 +49,7 @@ final class ShowService {
                 "episodeNumber": episodeNumber,
                 "season": season
         ]
-        .filter { $0.value != nil && $0.value != "" }
-        .mapValues{ $0! }
+        .compactMapValues { $0 }
         
         request(router: ShowRouter.createShowEpisode(parameters: parameters), completionHandler: completionHandler)
     }
