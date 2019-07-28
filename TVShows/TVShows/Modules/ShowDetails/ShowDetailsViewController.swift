@@ -36,6 +36,11 @@ final class ShowDetailsViewController: UIViewController {
         fetchShowDetails()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
     // MARK: - Actions
     
     @IBAction private func touchBackButtonActionHandler() {

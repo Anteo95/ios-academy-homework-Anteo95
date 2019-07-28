@@ -20,7 +20,6 @@ extension UIViewController {
         let storyboard = UIStoryboard(name: "ShowDetails", bundle: nil)
         let showDetailsViewController = storyboard.instantiateViewController(withIdentifier: "ShowDetailsViewController") as! ShowDetailsViewController
         showDetailsViewController.id = showId
-        navigationController?.setNavigationBarHidden(true, animated: false)
         navigationController?.pushViewController(showDetailsViewController, animated: true)
     }
     
