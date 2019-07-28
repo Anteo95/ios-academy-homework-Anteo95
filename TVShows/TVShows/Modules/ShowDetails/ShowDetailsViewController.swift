@@ -25,6 +25,7 @@ final class ShowDetailsViewController: UIViewController {
     var id: String! = nil
     private var items: [Episode]  = []
     private var showDetails: ShowDetails! = nil
+    private var showDetailsTableViewCellItem: ShowDetailsTableViewCellItem! = nil
     private let showService = ShowService()
     
     // MARK: - Lifecycle methods
@@ -73,11 +74,6 @@ extension ShowDetailsViewController: UITableViewDataSource {
         }
         else if indexPath.row == 1 {
             let cell = showDetailsTableView.dequeueReusableCell(withIdentifier: String(describing: ShowDetailsTableViewCell.self), for: indexPath) as!  ShowDetailsTableViewCell
-            let showDetailsTableViewCellItem = ShowDetailsTableViewCellItem(
-                title: showDetails.title,
-                description: showDetails.description,
-                numberOfEpisodes: items.count
-            )
             cell.configure(with: showDetailsTableViewCellItem)
             return cell
         } else {
@@ -117,13 +113,13 @@ extension ShowDetailsViewController: UITableViewDelegate {
 
 private extension ShowDetailsViewController {
     func setupTableView() {
-        let showDetailsCellNib = UINib.init(nibName: String(describing: ShowDetailsTableViewCell.self), bundle: nil)
+        let showDetailsCellNib = UINib(nibName: String(describing: ShowDetailsTableViewCell.self), bundle: nil)
         showDetailsTableView.register(showDetailsCellNib, forCellReuseIdentifier:  String(describing: ShowDetailsTableViewCell.self))
         
-        let episodeTableCellNib = UINib.init(nibName: String(describing: EpisodeTableViewCell.self), bundle: nil)
+        let episodeTableCellNib = UINib(nibName: String(describing: EpisodeTableViewCell.self), bundle: nil)
         showDetailsTableView.register(episodeTableCellNib, forCellReuseIdentifier: String(describing: EpisodeTableViewCell.self))
         
-        let showImageTableCellNib = UINib.init(nibName: String(describing: ShowImageTableViewCell.self), bundle: nil)
+        let showImageTableCellNib = UINib(nibName: String(describing: ShowImageTableViewCell.self), bundle: nil)
         showDetailsTableView.register(showImageTableCellNib, forCellReuseIdentifier: String(describing: ShowImageTableViewCell.self))
         
         showDetailsTableView.estimatedRowHeight = 48
@@ -142,10 +138,8 @@ private extension ShowDetailsViewController {
         SVProgressHUD.show()
         
         showService.fetchShowDetails(with: id) { [weak self] showDetailsResult in
-            guard let self = self else {
-                SVProgressHUD.dismiss()
-                return
-            }
+            SVProgressHUD.dismiss()
+            guard let self = self else { return }
             
             switch showDetailsResult {
             case .success(let showDetails):
@@ -153,12 +147,12 @@ private extension ShowDetailsViewController {
                 
                 self.showService.fetchEpisodesForShow(with: self.id) { [weak self]
                     episodesResult in
-                    SVProgressHUD.dismiss()
                     guard let self = self else { return }
                     
                     switch episodesResult {
                     case .success(let episodes):
                         self.items = episodes
+                        self.showDetailsTableViewCellItem = ShowDetailsTableViewCellItem(title: showDetails.title, description: showDetails.description, numberOfEpisodes: episodes.count)
                         self.showDetailsTableView.reloadData()
                         
                     case .failure(let error):
