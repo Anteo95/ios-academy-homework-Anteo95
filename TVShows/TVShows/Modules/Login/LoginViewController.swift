@@ -20,7 +20,6 @@ final class LoginViewController: UIViewController {
     
     // MARK: - Private properties
     
-    private var loginData: LoginData? = nil
     private var user: User? = nil
     private var userService = UserService()
     
@@ -56,7 +55,7 @@ final class LoginViewController: UIViewController {
             SVProgressHUD.dismiss()
             switch loginResult {
             case .success(let value):
-                self.loginData = value
+                SessionManager.attachAccessTokenAdapter(adapter: AccessTokenAdapter(accessToken: value.token))
                 self.navigateToHomeScreen()
                 
             case .failure(let error):
@@ -89,7 +88,7 @@ final class LoginViewController: UIViewController {
                     SVProgressHUD.dismiss()
                     switch loginResult {
                     case .success(let value):
-                        self.loginData = value
+                        SessionManager.attachAccessTokenAdapter(adapter: AccessTokenAdapter(accessToken: value.token))
                         self.navigateToHomeScreen()
                         
                     case .failure(let error):
@@ -135,7 +134,7 @@ private extension LoginViewController {
         if notification.name == UIResponder.keyboardWillHideNotification {
             scrollView.contentInset = .zero
         } else {
-            scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight, right: 0)
+            scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight + 16, right: 0)
         }
         
         scrollView.scrollIndicatorInsets = scrollView.contentInset

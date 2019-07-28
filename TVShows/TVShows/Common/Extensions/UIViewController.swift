@@ -13,12 +13,28 @@ extension UIViewController {
     func navigateToHomeScreen() {
         let storyboard = UIStoryboard(name: "Home", bundle: nil)
         let homeViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
-        navigationController?.pushViewController(homeViewController, animated: true)
+        navigationController?.setViewControllers([homeViewController], animated: true)
+    }
+    
+    func navigateToShowDetailsScreen(showId: String) {
+        let storyboard = UIStoryboard(name: "ShowDetails", bundle: nil)
+        let showDetailsViewController = storyboard.instantiateViewController(withIdentifier: "ShowDetailsViewController") as! ShowDetailsViewController
+        showDetailsViewController.id = showId
+        navigationController?.pushViewController(showDetailsViewController, animated: true)
+    }
+    
+    func presentAddEpisodeScreen(showId: String, delegate: AddEpisodeDelegate?) {
+        let storyboard = UIStoryboard(name: "ShowDetails", bundle: nil)
+        let addEpisodeViewController = storyboard.instantiateViewController(withIdentifier: "AddEpisodeViewController") as! AddEpisodeViewController
+        addEpisodeViewController.delegate = delegate
+        addEpisodeViewController.id = showId
+        let navigationController = UINavigationController(rootViewController: addEpisodeViewController)
+        present(navigationController, animated: true)
     }
     
     func showAlert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Dismiss", style: .default))
+        alertController.addAction(UIAlertAction(title: "Ok", style: .default))
         present(alertController, animated:  true, completion: nil)
     }
 }

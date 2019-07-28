@@ -25,7 +25,7 @@ final class UserService {
             "password": password
         ]
         Alamofire
-            .request(Constants.API.baseURL + "/users",
+            .request(Constants.API.baseURL + "/api/users",
                      method: .post,
                      parameters: parameters,
                      encoding: JSONEncoding.default)
@@ -43,7 +43,7 @@ final class UserService {
             "password": password
         ]
         Alamofire
-            .request(Constants.API.baseURL + "/users/sessions",
+            .request(Constants.API.baseURL + "/api/users/sessions",
                      method: .post,
                      parameters: parameters,
                      encoding: JSONEncoding.default)
