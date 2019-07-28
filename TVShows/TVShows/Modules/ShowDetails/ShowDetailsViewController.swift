@@ -14,8 +14,8 @@ final class ShowDetailsViewController: UIViewController {
     
     // MARK: - Outlets
     
-    @IBOutlet private weak var addEpisodeButtonTrailingConstraint: NSLayoutConstraint!
-    @IBOutlet private weak var backButtonLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var addEpisodeButtonBottomConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var backButtonTopConstraint: NSLayoutConstraint!
     @IBOutlet private weak var showDetailsTableView: UITableView!
     @IBOutlet private weak var backButton: UIButton!
     @IBOutlet private weak var addEpisodeButton: UIButton!
@@ -177,16 +177,16 @@ private extension ShowDetailsViewController {
 private extension ShowDetailsViewController {
     
     func animateButtonsOut() {
-        addEpisodeButtonTrailingConstraint.constant = -addEpisodeButton.frame.width
-        backButtonLeadingConstraint.constant = -backButton.frame.width
+        addEpisodeButtonBottomConstraint.constant = -100
+        backButtonTopConstraint.constant = -100
         UIView.animate(withDuration: 0.3) { [weak self] in
             self?.view.layoutIfNeeded()
         }
     }
     
     func animateButtonsIn() {
-        addEpisodeButtonTrailingConstraint.constant = 48
-        backButtonLeadingConstraint.constant = 16
+        addEpisodeButtonBottomConstraint.constant = 0
+        backButtonTopConstraint.constant = 0
         UIView.animate(withDuration: 0.3) { [weak self] in
             self?.view.layoutIfNeeded()
         }
