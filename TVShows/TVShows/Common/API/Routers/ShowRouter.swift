@@ -10,18 +10,14 @@ import Foundation
 import Alamofire
 
 enum ShowRouter: URLRequestConvertible {
-    case readShows
-    case readShowDetails(id: String)
-    case readShowEpisodes(id: String)
+    case shows
+    case showDetails(id: String)
+    case showEpisodes(id: String)
     case createShowEpisode(parameters: Parameters)
     
     var method: HTTPMethod {
         switch self {
-        case .readShows:
-            return .get
-        case .readShowDetails:
-            return .get
-        case .readShowEpisodes:
+        case .shows, .showDetails, .showEpisodes:
             return .get
         case .createShowEpisode:
             return .post
@@ -30,11 +26,11 @@ enum ShowRouter: URLRequestConvertible {
     
     var path: String {
         switch self {
-        case .readShows:
+        case .shows:
             return "/api/shows"
-        case .readShowDetails(let id):
+        case .showDetails(let id):
             return "/api/shows/\(id)"
-        case .readShowEpisodes(let id):
+        case .showEpisodes(let id):
             return "/api/shows/\(id)/episodes"
         case .createShowEpisode:
             return "/api/episodes"
@@ -47,11 +43,7 @@ enum ShowRouter: URLRequestConvertible {
         var urlRequest = try URLRequest(url: Constants.API.baseURL + path, method: method, headers: nil)
         
         switch self {
-        case .readShows:
-            urlRequest = try URLEncoding.default.encode(urlRequest, with: nil)
-        case .readShowDetails:
-            urlRequest = try URLEncoding.default.encode(urlRequest, with: nil)
-        case .readShowEpisodes:
+        case .shows, .showDetails, .showEpisodes:
             urlRequest = try URLEncoding.default.encode(urlRequest, with: nil)
         case .createShowEpisode(let parameters):
             urlRequest = try JSONEncoding.default.encode(urlRequest, with: parameters)

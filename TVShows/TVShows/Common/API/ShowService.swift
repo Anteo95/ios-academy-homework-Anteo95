@@ -20,31 +20,25 @@ final class ShowService {
     
     // MARK: - API requests
     
-    func fetchShows(completionHandler: @escaping FetchShowsResponseBlock) {
+    func request<T: Decodable>(router: URLRequestConvertible, completionHandler: @escaping (Result<T>) -> Void) {
         Alamofire
-            .request(ShowRouter.readShows)
+            .request(router)
             .validate()
             .responseDecodableObject(keyPath: "data") { dataResponse in
                 completionHandler(dataResponse.result)
-            }
+        }
+    }
+    
+    func fetchShows(completionHandler: @escaping FetchShowsResponseBlock) {
+        request(router: ShowRouter.shows, completionHandler: completionHandler)
     }
     
     func fetchShowDetails(with id: String, completionHandler: @escaping FetchShowDetailsResponseBlock) {
-        Alamofire
-            .request(ShowRouter.readShowDetails(id: id))
-            .validate()
-            .responseDecodableObject(keyPath: "data") { dataResponse in
-                completionHandler(dataResponse.result)
-            }
+        request(router: ShowRouter.showDetails(id: id), completionHandler: completionHandler)
     }
     
     func fetchEpisodesForShow(with id: String, completionHandler: @escaping FetchShowEpisodesResponseBlock) {
-        Alamofire
-            .request(ShowRouter.readShowEpisodes(id: id))
-            .validate()
-            .responseDecodableObject(keyPath: "data") { dataResponse in
-                completionHandler(dataResponse.result)
-            }
+        request(router: ShowRouter.showEpisodes(id: id), completionHandler: completionHandler)
     }
     
     func createEpisodeForShow(with id: String, title: String, description: String, episodeNumber: String?, season: String?, completionHandler: @escaping  CreateEpisodeResponseBlock) {
@@ -58,11 +52,6 @@ final class ShowService {
         .filter { $0.value != nil && $0.value != "" }
         .mapValues{ $0! }
         
-        Alamofire
-            .request(ShowRouter.createShowEpisode(parameters: parameters))
-            .validate()
-            .responseDecodableObject(keyPath: "data") { dataResponse in
-                completionHandler(dataResponse.result)
-            }
+        request(router: ShowRouter.createShowEpisode(parameters: parameters), completionHandler: completionHandler)
     }
 }
