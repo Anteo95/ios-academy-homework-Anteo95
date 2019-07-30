@@ -10,23 +10,35 @@ import UIKit
 import Alamofire
 import SVProgressHUD
 
+enum ItemsLayout {
+    case list
+    case grid
+}
+
 final class HomeViewController: UIViewController {
     
     // MARK: - Outlets
     
-    @IBOutlet private weak var showsTableView: UITableView!
+    @IBOutlet private weak var showsCollectionView: UICollectionView!
     
     // MARK: - Private properties
     
     private var items: [Show] = []
     private let showService = ShowService()
-
+    private var itemsLayout: ItemsLayout = .list
+    private let edgeInsets = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+    
+    private let listImage = UIImage(named: "ic-listview")
+    
+    private let numberOfColumnsInGrid = 2
+    private let gridImage = UIImage(named: "ic-gridview")
+    
     // MARK: - Lifecycle methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTableView()
-        setupUI()
+        setupCollectionView()
+        setupNavigationBar()
         fetchShows()
     }
     
@@ -34,36 +46,72 @@ final class HomeViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
+    
+    // MARK: - Actions
+    
+    @objc private func logoutActionHandler() {
+        
+    }
+    
+    @objc private func changeLayoutActionHandler() {
+        switch itemsLayout {
+        case .list:
+            itemsLayout = .grid
+            navigationItem.rightBarButtonItem?.image = listImage
+        case .grid:
+            itemsLayout = .list
+            navigationItem.rightBarButtonItem?.image = gridImage
+        }
+        showsCollectionView.reloadData()
+    }
 }
 
-// MARK: - UITableView
+// MARK: - UICollectionView
 
-extension HomeViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension HomeViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return items.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = showsTableView.dequeueReusableCell(withIdentifier: String(describing: TVShowTableViewCell.self), for: indexPath) as! TVShowTableViewCell
-        cell.configure(with: items[indexPath.row])
-        return cell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        switch itemsLayout {
+        case .list:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: TVShowListCollectionViewCell.self), for: indexPath) as! TVShowListCollectionViewCell
+            cell.configure(with: items[indexPath.row])
+            return cell
+        case .grid:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: TVShowGridCollectionViewCell.self), for: indexPath) as! TVShowGridCollectionViewCell
+            cell.configure(with: items[indexPath.row])
+            return cell
+        }
     }
 }
 
-extension HomeViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+extension HomeViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
         navigateToShowDetailsScreen(showId: items[indexPath.row].id)
     }
-    
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let delete = UITableViewRowAction(style: .destructive, title: "Delete") { [weak self] action, indexPath in
-            self?.items.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.fade)
+}
+
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        switch itemsLayout {
+        case .list:
+            let availableWidth = view.frame.width - edgeInsets.left - edgeInsets.right
+            return CGSize(width: availableWidth, height: 128)
+            
+        case .grid:
+            let paddingSpace = edgeInsets.left * CGFloat((numberOfColumnsInGrid + 1))
+            let availableWidth = view.frame.width - paddingSpace
+            let widthPerItem = availableWidth / 2 - 5
+            return CGSize(width: widthPerItem, height: 192)
         }
-        return [delete]
     }
-    
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return edgeInsets
+    }
 }
 
 // MARK: - Private API requests
@@ -77,7 +125,7 @@ private extension HomeViewController {
             switch result {
             case .success(let value):
                 self?.items =  value
-                self?.showsTableView.reloadData()
+                self?.showsCollectionView.reloadData()
                 
             case .failure(let error):
                 print("Error fetching shows: \(error)")
@@ -85,27 +133,52 @@ private extension HomeViewController {
         }
     }
 }
-
+    
 // MARK: - Private UI setup
 
 private extension HomeViewController {
-    func setupUI() {
+    
+    func setupNavigationBar() {
+        let navigationBar = navigationController!.navigationBar
+        navigationBar.tintColor = UIColor.darkGray
+        
+        let logoutItem = UIBarButtonItem(
+            image: UIImage(named: "ic-logout"),
+            style: .plain,
+            target: self,
+            action: #selector(logoutActionHandler)
+        )
+        navigationItem.leftBarButtonItem = logoutItem
+        
+        let changeLayoutItem = UIBarButtonItem(
+            image: gridImage,
+            style: .plain,
+            target: self,
+            action: #selector(changeLayoutActionHandler)
+        )
+        navigationItem.rightBarButtonItem = changeLayoutItem
+        
         title = "Shows"
+
     }
 }
 
-// MARK: - Private table view setup
+// MARK: - Private collection view setup
 
 private extension HomeViewController {
-    func setupTableView() {
-        showsTableView.estimatedRowHeight = 110
-        showsTableView.rowHeight = UITableView.automaticDimension
-        showsTableView.tableFooterView = UIView()
+    
+    func setupCollectionView() {
+        let listCellNib = UINib(nibName: String(describing: TVShowListCollectionViewCell.self), bundle: nil)
+        showsCollectionView.register(listCellNib, forCellWithReuseIdentifier:  String(describing: TVShowListCollectionViewCell.self))
         
-        showsTableView.dataSource = self
-        showsTableView.delegate = self
+        let gridCellNib = UINib(nibName: String(describing: TVShowGridCollectionViewCell.self), bundle: nil)
+        showsCollectionView.register(gridCellNib, forCellWithReuseIdentifier:  String(describing: TVShowGridCollectionViewCell.self))
+        
+        showsCollectionView.dataSource = self
+        showsCollectionView.delegate = self
     }
 }
+
 
 
 
