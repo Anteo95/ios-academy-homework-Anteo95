@@ -17,6 +17,7 @@ final class ShowService {
     typealias FetchShowDetailsResponseBlock = (Result<ShowDetails>) -> Void
     typealias FetchShowEpisodesResponseBlock = (Result<[Episode]>) -> Void
     typealias CreateEpisodeResponseBlock = (Result<Episode>) -> Void
+    typealias FetchEpisodeDetailsResponseBlock = (Result<EpisodeDetails>) -> Void
     
     // MARK: - API requests
     
@@ -52,5 +53,9 @@ final class ShowService {
         .compactMapValues { $0 }
         
         request(router: ShowRouter.createShowEpisode(parameters: parameters), completionHandler: completionHandler)
+    }
+    
+    func fetchDetailsForEpisode(with id: String, completionHandler: @escaping FetchEpisodeDetailsResponseBlock) {
+        request(router: ShowRouter.episodeDetails(id: id), completionHandler: completionHandler)
     }
 }

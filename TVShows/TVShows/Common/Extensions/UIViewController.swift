@@ -38,6 +38,13 @@ extension UIViewController {
         present(navigationController, animated: true)
     }
     
+    func navigateToEpisodeDetailsScreen(episodeId: String) {
+        let storyboard = UIStoryboard(name: "ShowDetails", bundle: nil)
+        let episodeDetailsViewController = storyboard.instantiateViewController(withIdentifier: "EpisodeDetailsViewController") as! EpisodeDetailsViewController
+        episodeDetailsViewController.episodeId = episodeId
+        navigationController?.pushViewController(episodeDetailsViewController, animated: true)
+    }
+    
     func showAlert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Ok", style: .default))
