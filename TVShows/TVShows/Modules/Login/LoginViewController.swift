@@ -8,6 +8,8 @@
 
 import UIKit
 import SVProgressHUD
+import RxSwift
+import RxCocoa
 
 final class LoginViewController: UIViewController {
     
@@ -22,12 +24,14 @@ final class LoginViewController: UIViewController {
     
     private var user: User? = nil
     private var userService = UserService()
+    private let disposeBag = DisposeBag()
     
     // MARK: - Lifecycle methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupTextChangeHandlers()
         subscribeToKeyboardNotifications()
     }
     
@@ -102,6 +106,44 @@ final class LoginViewController: UIViewController {
         }
     }
     
+}
+
+// MARK: - RX setup
+private extension LoginViewController {
+    func setupTextChangeHandlers() {
+        let validName =
+            usernameTextField
+            .rx
+            .text
+            .throttle(DispatchTimeInterval.milliseconds(100), scheduler: MainScheduler.asyncInstance)
+            .distinctUntilChanged()
+            .map {
+                self.validateTextField(string: $0)
+            }
+        let validPassword =
+            passwordTextField
+            .rx
+            .text
+            .throttle(DispatchTimeInterval.milliseconds(100), scheduler: MainScheduler.asyncInstance)
+            .distinctUntilChanged()
+            .map {
+                self.validateTextField(string: $0)
+            }
+        let loginButtonEnabled = Observable.combineLatest(validName, validPassword) {
+            return $0 && $1
+        }
+        
+        
+        loginButtonEnabled.subscribe(onNext: { [unowned self] in
+            self.loginButton.alpha = $0 ? 1.0 : 0.5
+            self.loginButton.isEnabled = $0
+        })
+        .disposed(by: disposeBag)
+    }
+    
+    func validateTextField(string: String?) -> Bool {
+        return string?.count ?? 0 >= 5
+    }
 }
 
 // MARK: - Private UI setup
