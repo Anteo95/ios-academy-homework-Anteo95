@@ -19,6 +19,7 @@ final class LoginViewController: UIViewController {
     @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet private weak var usernameTextField: UITextField!
     @IBOutlet private weak var passwordTextField: UITextField!
+    @IBOutlet private weak var rememberMeButton: UIButton!
     
     // MARK: - Private properties
     
@@ -33,6 +34,11 @@ final class LoginViewController: UIViewController {
         setupUI()
         setupTextChangeHandlers()
         subscribeToKeyboardNotifications()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     // MARK: - Actions
@@ -60,6 +66,9 @@ final class LoginViewController: UIViewController {
             switch loginResult {
             case .success(let value):
                 SessionManager.attachAccessTokenAdapter(adapter: AccessTokenAdapter(accessToken: value.token))
+                if self.rememberMeButton.isSelected {
+                    KeychainManager.addUserInfo(username: username, password: password, token: value.token)
+                }
                 self.navigateToHomeScreen()
                 
             case .failure(let error):
@@ -93,6 +102,9 @@ final class LoginViewController: UIViewController {
                     switch loginResult {
                     case .success(let value):
                         SessionManager.attachAccessTokenAdapter(adapter: AccessTokenAdapter(accessToken: value.token))
+                        if self.rememberMeButton.isSelected {
+                            KeychainManager.addUserInfo(username: username, password: password, token: value.token)
+                        }
                         self.navigateToHomeScreen()
                         
                     case .failure(let error):

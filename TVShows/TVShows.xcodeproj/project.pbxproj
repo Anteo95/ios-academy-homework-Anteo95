@@ -39,6 +39,7 @@
 		0FFFA59822F022AB00DB392B /* TVShowListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FFFA59622F022AB00DB392B /* TVShowListCollectionViewCell.xib */; };
 		0FFFA59B22F0346B00DB392B /* TVShowGridCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FFFA59922F0346B00DB392B /* TVShowGridCollectionViewCell.swift */; };
 		0FFFA59C22F0346B00DB392B /* TVShowGridCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FFFA59A22F0346B00DB392B /* TVShowGridCollectionViewCell.xib */; };
+		0FFFA59E22F05E0100DB392B /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FFFA59D22F05E0100DB392B /* KeychainManager.swift */; };
 		34C660EB9D59243DF1BF1D20 /* Pods_TVShows.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82737D764E1877C239456C14 /* Pods_TVShows.framework */; };
 /* End PBXBuildFile section */
 
@@ -77,6 +78,7 @@
 		0FFFA59622F022AB00DB392B /* TVShowListCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TVShowListCollectionViewCell.xib; sourceTree = "<group>"; };
 		0FFFA59922F0346B00DB392B /* TVShowGridCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVShowGridCollectionViewCell.swift; sourceTree = "<group>"; };
 		0FFFA59A22F0346B00DB392B /* TVShowGridCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TVShowGridCollectionViewCell.xib; sourceTree = "<group>"; };
+		0FFFA59D22F05E0100DB392B /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		82737D764E1877C239456C14 /* Pods_TVShows.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TVShows.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E27FE951295D7939CC4500DD /* Pods-TVShows.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TVShows.release.xcconfig"; path = "Target Support Files/Pods-TVShows/Pods-TVShows.release.xcconfig"; sourceTree = "<group>"; };
 		FB0608BE7C01E5700D96F8FC /* Pods-TVShows.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TVShows.debug.xcconfig"; path = "Target Support Files/Pods-TVShows/Pods-TVShows.debug.xcconfig"; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 			children = (
 				0FAF654022DD49AE009906A2 /* Extensions */,
 				0F781BDF22DA54FE0024544D /* API */,
+				0FFFA59D22F05E0100DB392B /* KeychainManager.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -414,6 +417,7 @@
 				0FF4751122E63A09007A7FDE /* ShowDetailsTableViewCell.swift in Sources */,
 				0F781BE222DA57A80024544D /* User.swift in Sources */,
 				0FF4752322E71AD2007A7FDE /* AddEpisodeViewController.swift in Sources */,
+				0FFFA59E22F05E0100DB392B /* KeychainManager.swift in Sources */,
 				0FF4751722E648A2007A7FDE /* EpisodeTableViewCell.swift in Sources */,
 				0F781BDD22DA4E8E0024544D /* UserService.swift in Sources */,
 				0FAF654222DD4A5C009906A2 /* UIViewController.swift in Sources */,

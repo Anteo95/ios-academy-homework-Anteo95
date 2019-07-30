@@ -10,6 +10,12 @@ import UIKit
 
 extension UIViewController {
     
+    func navigateToLoginScreen() {
+        let storyboard = UIStoryboard(name: "Login", bundle: nil)
+        let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        navigationController?.setViewControllers([loginViewController], animated: true)
+    }
+    
     func navigateToHomeScreen() {
         let storyboard = UIStoryboard(name: "Home", bundle: nil)
         let homeViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController

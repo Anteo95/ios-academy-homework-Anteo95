@@ -50,7 +50,8 @@ final class HomeViewController: UIViewController {
     // MARK: - Actions
     
     @objc private func logoutActionHandler() {
-        
+        KeychainManager.removeUserInfo()
+        navigateToLoginScreen()
     }
     
     @objc private func changeLayoutActionHandler() {
