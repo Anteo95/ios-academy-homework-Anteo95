@@ -18,6 +18,8 @@ final class ShowService {
     typealias FetchShowEpisodesResponseBlock = (Result<[Episode]>) -> Void
     typealias CreateEpisodeResponseBlock = (Result<Episode>) -> Void
     typealias FetchEpisodeDetailsResponseBlock = (Result<EpisodeDetails>) -> Void
+    typealias FetchEpisodeCommentsResponseBlock = (Result<[Comment]>) -> Void
+    typealias CreateCommentResponseBlock = (Result<Comment>) -> Void
     
     // MARK: - API requests
     
@@ -57,5 +59,17 @@ final class ShowService {
     
     func fetchDetailsForEpisode(with id: String, completionHandler: @escaping FetchEpisodeDetailsResponseBlock) {
         request(router: ShowRouter.episodeDetails(id: id), completionHandler: completionHandler)
+    }
+    
+    func fetchCommentsForEpisode(with id: String, completionHandler: @escaping FetchEpisodeCommentsResponseBlock) {
+        request(router: ShowRouter.episodeComments(id: id), completionHandler: completionHandler)
+    }
+    
+    func createCommentForEpisode(with id: String, text: String, completionHandler: @escaping CreateCommentResponseBlock) {
+        let parameters: [String: Any] = [
+            "episodeId": id,
+            "text": text
+        ]
+        request(router: ShowRouter.createComment(parameters: parameters), completionHandler: completionHandler)
     }
 }

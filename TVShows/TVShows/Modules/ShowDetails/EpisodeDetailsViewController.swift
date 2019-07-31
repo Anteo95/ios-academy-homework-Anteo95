@@ -9,7 +9,7 @@
 import UIKit
 import SVProgressHUD
 
-class EpisodeDetailsViewController: UIViewController {
+final class EpisodeDetailsViewController: UIViewController {
     
     // MARK: - Outlets
     
@@ -29,6 +29,11 @@ class EpisodeDetailsViewController: UIViewController {
         super.viewDidLoad()
         fetchEpisodeDetails()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: true)
+    }
 
     // MARK: Actions
     
@@ -36,7 +41,7 @@ class EpisodeDetailsViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     @IBAction private func touchViewCommentsButtonActionHandler() {
-        
+        navigateToEpisodeCommentsScreen(episodeId: episodeId)
     }
 }
 

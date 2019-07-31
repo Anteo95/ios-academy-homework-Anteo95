@@ -45,6 +45,13 @@ extension UIViewController {
         navigationController?.pushViewController(episodeDetailsViewController, animated: true)
     }
     
+    func navigateToEpisodeCommentsScreen(episodeId: String) {
+        let storyboard = UIStoryboard(name: "ShowDetails", bundle: nil)
+        let episodeCommentsViewController = storyboard.instantiateViewController(withIdentifier: "EpisodeCommentsViewController") as! EpisodeCommentsViewController
+        episodeCommentsViewController.episodeId = episodeId
+        navigationController?.pushViewController(episodeCommentsViewController, animated: true)
+    }
+    
     func showAlert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Ok", style: .default))
