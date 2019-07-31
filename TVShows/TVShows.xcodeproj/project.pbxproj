@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F13083D22F23444007958B5 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F13083C22F23444007958B5 /* Media.swift */; };
 		0F132A2C22F0EB2C000CCE2D /* EpisodeCommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F132A2A22F0EB2C000CCE2D /* EpisodeCommentTableViewCell.swift */; };
 		0F132A2D22F0EB2C000CCE2D /* EpisodeCommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F132A2B22F0EB2C000CCE2D /* EpisodeCommentTableViewCell.xib */; };
 		0F132A2F22F0EF23000CCE2D /* EpisodeCommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F132A2E22F0EF23000CCE2D /* EpisodeCommentsViewController.swift */; };
@@ -51,6 +52,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0F13083C22F23444007958B5 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		0F132A2A22F0EB2C000CCE2D /* EpisodeCommentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeCommentTableViewCell.swift; sourceTree = "<group>"; };
 		0F132A2B22F0EB2C000CCE2D /* EpisodeCommentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EpisodeCommentTableViewCell.xib; sourceTree = "<group>"; };
 		0F132A2E22F0EF23000CCE2D /* EpisodeCommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeCommentsViewController.swift; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 				0FFFA5A122F0B27A00DB392B /* EpisodeDetails.swift */,
 				0F132A2E22F0EF23000CCE2D /* EpisodeCommentsViewController.swift */,
 				0F132A3022F17F13000CCE2D /* Comment.swift */,
+				0F13083C22F23444007958B5 /* Media.swift */,
 			);
 			path = ShowDetails;
 			sourceTree = "<group>";
@@ -448,6 +451,7 @@
 				0F21C94E22E0AEFF00E4F5AF /* AccessTokenAdapter.swift in Sources */,
 				0F21C94022DF44D600E4F5AF /* ShowRouter.swift in Sources */,
 				0FF4751F22E6FD3B007A7FDE /* ShowImageTableViewCell.swift in Sources */,
+				0F13083D22F23444007958B5 /* Media.swift in Sources */,
 				0FDDB9E322D9F74500C33340 /* HomeViewController.swift in Sources */,
 				0FF4751122E63A09007A7FDE /* ShowDetailsTableViewCell.swift in Sources */,
 				0F781BE222DA57A80024544D /* User.swift in Sources */,

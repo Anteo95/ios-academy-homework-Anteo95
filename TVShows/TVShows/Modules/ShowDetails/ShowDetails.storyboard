@@ -327,6 +327,9 @@
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eEE-l2-Yke">
                                                                 <rect key="frame" x="0.0" y="0.0" width="327" height="24"/>
                                                                 <state key="normal" image="ic-camera"/>
+                                                                <connections>
+                                                                    <action selector="touchUploadPhotoButtonActionHandler" destination="sCe-Zh-trH" eventType="touchUpInside" id="3AQ-BR-PQN"/>
+                                                                </connections>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upload photo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hCI-SE-7Ue">
                                                                 <rect key="frame" x="0.0" y="32" width="327" height="18"/>

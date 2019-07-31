@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import UIKit
 
 final class ShowService {
     
@@ -20,6 +21,7 @@ final class ShowService {
     typealias FetchEpisodeDetailsResponseBlock = (Result<EpisodeDetails>) -> Void
     typealias FetchEpisodeCommentsResponseBlock = (Result<[Comment]>) -> Void
     typealias CreateCommentResponseBlock = (Result<Comment>) -> Void
+    typealias UploadImageResponseBlock = (Result<Media>) -> Void
     
     // MARK: - API requests
     
@@ -44,13 +46,14 @@ final class ShowService {
         request(router: ShowRouter.showEpisodes(id: id), completionHandler: completionHandler)
     }
     
-    func createEpisodeForShow(with id: String, title: String, description: String, episodeNumber: String?, season: String?, completionHandler: @escaping  CreateEpisodeResponseBlock) {
+    func createEpisodeForShow(with id: String, title: String, description: String, episodeNumber: String?, season: String?, mediaId: String?, completionHandler: @escaping  CreateEpisodeResponseBlock) {
         let parameters: [String: Any] = [
                 "title": title,
                 "showId": id,
                 "description": description,
                 "episodeNumber": episodeNumber,
-                "season": season
+                "season": season,
+                "mediaId": mediaId
         ]
         .compactMapValues { $0 }
         
@@ -72,4 +75,24 @@ final class ShowService {
         ]
         request(router: ShowRouter.createComment(parameters: parameters), completionHandler: completionHandler)
     }
+    
+    func uploadImage(imageBytedata: Data, completionHandler: @escaping UploadImageResponseBlock) {
+        Alamofire
+            .upload(multipartFormData: { multipartformdata in
+            multipartformdata.append(imageBytedata,
+                                      withName: "file",
+                                      fileName: "image.png",
+                                      mimeType: "image/png")
+            }, with: ShowRouter.uploadImage) { result in
+                switch result {
+                case .success(let uploadRequest, _, _):
+                    uploadRequest.responseDecodableObject(keyPath: "data") { (response: DataResponse<Media>) in
+                            completionHandler(response.result)
+                    }
+                case .failure(let encodingError):
+                    print(encodingError)
+                }
+            }
+    }
+    
 }
