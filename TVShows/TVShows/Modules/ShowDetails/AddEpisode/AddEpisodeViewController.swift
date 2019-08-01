@@ -23,10 +23,18 @@ final class AddEpisodeViewController: UIViewController {
     @IBOutlet private weak var episodeNumberTextField: UITextField!
     @IBOutlet private weak var descriptionTextField: UITextField!
     
+
     // MARK: - Properties
     
     var id: String! = nil
     private let showService = ShowService()
+    private lazy var imagePickerController: UIImagePickerController = {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+        return imagePicker
+    }()
+    private var selectedImage: UIImage? = nil
     
     weak var delegate: AddEpisodeDelegate? = nil
     
@@ -39,12 +47,15 @@ final class AddEpisodeViewController: UIViewController {
     }
     
     // MARK: - Actions
+    @IBAction private func touchUploadPhotoButtonActionHandler() {
+        present(imagePickerController, animated: true, completion: nil)
+    }
     
-    @objc func didSelectCancel() {
+    @objc private func didSelectCancel() {
         dismiss(animated: true)
     }
     
-    @objc func didSelectAddShow() {
+    @objc private func didSelectAddShow() {
         guard
             let title = titleTextField.text,
             let description = descriptionTextField.text,
@@ -54,9 +65,24 @@ final class AddEpisodeViewController: UIViewController {
             showAlert(title: "Error Adding episode", message: "Title and description must not be empty.")
             return
         }
+        
+        let episodeNumber = episodeNumberTextField.text
+        let seasonNumber = seasonNumberTextField.text
+        
+        if selectedImage != nil {
+            uploadImageAndCreateEpisode(title: title, description: description, episodeNumber: episodeNumber, season: seasonNumber)
+        } else {
+            createEpisode(title: title, description: description, episodeNumber: episodeNumber, season: seasonNumber, mediaId: nil)
+        }
+    }
+}
+
+// MARK: - Private API Requests
+private extension AddEpisodeViewController {
     
+    func createEpisode(title: String, description: String, episodeNumber: String?, season: String?, mediaId: String?) {
         SVProgressHUD.show()
-        showService.createEpisodeForShow(with: id, title: title, description: description, episodeNumber: episodeNumberTextField.text, season: seasonNumberTextField.text) { [weak self] result in
+        showService.createEpisodeForShow(with: id, title: title, description: description, episodeNumber: episodeNumber, season: season, mediaId: mediaId) { [weak self] result in
             SVProgressHUD.dismiss()
             guard let self = self else { return }
             
@@ -70,7 +96,28 @@ final class AddEpisodeViewController: UIViewController {
                 self.showAlert(title: "Error Adding episode", message: error.localizedDescription)
             }
         }
-        
+    }
+    
+    func uploadImageAndCreateEpisode(title: String, description: String, episodeNumber: String?, season: String?) {
+        guard
+            let selectedImage = selectedImage,
+            let imageByteData = selectedImage.pngData()
+        else {
+            return
+        }
+        SVProgressHUD.show()
+        showService.uploadImage(imageBytedata: imageByteData) { [weak self] result in
+            SVProgressHUD.dismiss()
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let media):
+                print("MediaID: \(media.id)")
+                self.createEpisode(title: title, description: description, episodeNumber: episodeNumber, season: season, mediaId: media.id)
+            case .failure(let error):
+                self.showAlert(title: "Error Adding episode", message: error.localizedDescription)
+            }
+        }
     }
 }
 
@@ -97,6 +144,15 @@ private extension AddEpisodeViewController {
             action: #selector(didSelectAddShow)
         )
         title = "Add episode"
+    }
+}
+
+// MARK: - UIImagePickerController
+
+extension AddEpisodeViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        selectedImage = info[.originalImage] as? UIImage
+        dismiss(animated: true, completion: nil)
     }
 }
 

@@ -8,6 +8,8 @@
 
 import UIKit
 import SVProgressHUD
+import RxSwift
+import RxCocoa
 
 final class LoginViewController: UIViewController {
     
@@ -17,18 +19,26 @@ final class LoginViewController: UIViewController {
     @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet private weak var usernameTextField: UITextField!
     @IBOutlet private weak var passwordTextField: UITextField!
+    @IBOutlet private weak var rememberMeButton: UIButton!
     
     // MARK: - Private properties
     
     private var user: User? = nil
     private var userService = UserService()
+    private let disposeBag = DisposeBag()
     
     // MARK: - Lifecycle methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupTextChangeHandlers()
         subscribeToKeyboardNotifications()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     // MARK: - Actions
@@ -56,6 +66,9 @@ final class LoginViewController: UIViewController {
             switch loginResult {
             case .success(let value):
                 SessionManager.attachAccessTokenAdapter(adapter: AccessTokenAdapter(accessToken: value.token))
+                if self.rememberMeButton.isSelected {
+                    KeychainManager.addUserInfo(username: username, password: password, token: value.token)
+                }
                 self.navigateToHomeScreen()
                 
             case .failure(let error):
@@ -89,6 +102,9 @@ final class LoginViewController: UIViewController {
                     switch loginResult {
                     case .success(let value):
                         SessionManager.attachAccessTokenAdapter(adapter: AccessTokenAdapter(accessToken: value.token))
+                        if self.rememberMeButton.isSelected {
+                            KeychainManager.addUserInfo(username: username, password: password, token: value.token)
+                        }
                         self.navigateToHomeScreen()
                         
                     case .failure(let error):
@@ -102,6 +118,44 @@ final class LoginViewController: UIViewController {
         }
     }
     
+}
+
+// MARK: - RX setup
+private extension LoginViewController {
+    func setupTextChangeHandlers() {
+        let validName =
+            usernameTextField
+            .rx
+            .text
+            .throttle(DispatchTimeInterval.milliseconds(100), scheduler: MainScheduler.asyncInstance)
+            .distinctUntilChanged()
+            .map {
+                self.validateTextField(string: $0)
+            }
+        let validPassword =
+            passwordTextField
+            .rx
+            .text
+            .throttle(DispatchTimeInterval.milliseconds(100), scheduler: MainScheduler.asyncInstance)
+            .distinctUntilChanged()
+            .map {
+                self.validateTextField(string: $0)
+            }
+        let loginButtonEnabled = Observable.combineLatest(validName, validPassword) {
+            return $0 && $1
+        }
+        
+        
+        loginButtonEnabled.subscribe(onNext: { [unowned self] in
+            self.loginButton.alpha = $0 ? 1.0 : 0.5
+            self.loginButton.isEnabled = $0
+        })
+        .disposed(by: disposeBag)
+    }
+    
+    func validateTextField(string: String?) -> Bool {
+        return string?.count ?? 0 >= 5
+    }
 }
 
 // MARK: - Private UI setup

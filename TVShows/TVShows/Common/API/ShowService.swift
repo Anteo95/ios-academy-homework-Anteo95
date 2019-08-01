@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import UIKit
 
 final class ShowService {
     
@@ -17,6 +18,10 @@ final class ShowService {
     typealias FetchShowDetailsResponseBlock = (Result<ShowDetails>) -> Void
     typealias FetchShowEpisodesResponseBlock = (Result<[Episode]>) -> Void
     typealias CreateEpisodeResponseBlock = (Result<Episode>) -> Void
+    typealias FetchEpisodeDetailsResponseBlock = (Result<EpisodeDetails>) -> Void
+    typealias FetchEpisodeCommentsResponseBlock = (Result<[Comment]>) -> Void
+    typealias CreateCommentResponseBlock = (Result<Comment>) -> Void
+    typealias UploadImageResponseBlock = (Result<Media>) -> Void
     
     // MARK: - API requests
     
@@ -41,16 +46,53 @@ final class ShowService {
         request(router: ShowRouter.showEpisodes(id: id), completionHandler: completionHandler)
     }
     
-    func createEpisodeForShow(with id: String, title: String, description: String, episodeNumber: String?, season: String?, completionHandler: @escaping  CreateEpisodeResponseBlock) {
+    func createEpisodeForShow(with id: String, title: String, description: String, episodeNumber: String?, season: String?, mediaId: String?, completionHandler: @escaping  CreateEpisodeResponseBlock) {
         let parameters: [String: Any] = [
                 "title": title,
                 "showId": id,
                 "description": description,
                 "episodeNumber": episodeNumber,
-                "season": season
+                "season": season,
+                "mediaId": mediaId
         ]
         .compactMapValues { $0 }
         
         request(router: ShowRouter.createShowEpisode(parameters: parameters), completionHandler: completionHandler)
     }
+    
+    func fetchDetailsForEpisode(with id: String, completionHandler: @escaping FetchEpisodeDetailsResponseBlock) {
+        request(router: ShowRouter.episodeDetails(id: id), completionHandler: completionHandler)
+    }
+    
+    func fetchCommentsForEpisode(with id: String, completionHandler: @escaping FetchEpisodeCommentsResponseBlock) {
+        request(router: ShowRouter.episodeComments(id: id), completionHandler: completionHandler)
+    }
+    
+    func createCommentForEpisode(with id: String, text: String, completionHandler: @escaping CreateCommentResponseBlock) {
+        let parameters: [String: Any] = [
+            "episodeId": id,
+            "text": text
+        ]
+        request(router: ShowRouter.createComment(parameters: parameters), completionHandler: completionHandler)
+    }
+    
+    func uploadImage(imageBytedata: Data, completionHandler: @escaping UploadImageResponseBlock) {
+        Alamofire
+            .upload(multipartFormData: { multipartformdata in
+            multipartformdata.append(imageBytedata,
+                                      withName: "file",
+                                      fileName: "image.png",
+                                      mimeType: "image/png")
+            }, with: ShowRouter.uploadImage) { result in
+                switch result {
+                case .success(let uploadRequest, _, _):
+                    uploadRequest.responseDecodableObject(keyPath: "data") { (response: DataResponse<Media>) in
+                            completionHandler(response.result)
+                    }
+                case .failure(let encodingError):
+                    print(encodingError)
+                }
+            }
+    }
+    
 }

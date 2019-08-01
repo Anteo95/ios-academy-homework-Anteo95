@@ -2,32 +2,50 @@ PODS:
   - Alamofire (4.8.2)
   - CodableAlamofire (1.1.1):
     - Alamofire (~> 4.0)
+  - KeychainAccess (3.2.0)
   - Kingfisher (5.7.0)
   - MBProgressHUD (1.1.0)
+  - RxCocoa (5.0.0):
+    - RxRelay (~> 5)
+    - RxSwift (~> 5)
+  - RxRelay (5.0.0):
+    - RxSwift (~> 5)
+  - RxSwift (5.0.0)
   - SVProgressHUD (2.2.5)
 
 DEPENDENCIES:
   - Alamofire
   - CodableAlamofire
+  - KeychainAccess
   - Kingfisher (~> 5.0)
   - MBProgressHUD (~> 1.1.0)
+  - RxCocoa (~> 5)
+  - RxSwift (~> 5)
   - SVProgressHUD
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - CodableAlamofire
+    - KeychainAccess
     - Kingfisher
     - MBProgressHUD
+    - RxCocoa
+    - RxRelay
+    - RxSwift
     - SVProgressHUD
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   CodableAlamofire: b587c1198562824abb1f468aed34feb00d6cecd8
+  KeychainAccess: 3b1bf8a77eb4c6ea1ce9404c292e48f948954c6b
   Kingfisher: c7d211b54f1f30d8060aadab177d52b4349c825b
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
+  RxCocoa: fcf32050ac00d801f34a7f71d5e8e7f23026dcd8
+  RxRelay: 4f7409406a51a55cd88483f21ed898c234d60f18
+  RxSwift: 8b0671caa829a763bbce7271095859121cbd895f
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: 7d9cdefe55743642fc43d2ee306cf2ffda994523
+PODFILE CHECKSUM: 86afc36effc5b4758859b511919a22a8eb3d2de6
 
 COCOAPODS: 1.7.3

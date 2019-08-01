@@ -10,6 +10,12 @@ import UIKit
 
 extension UIViewController {
     
+    func navigateToLoginScreen() {
+        let storyboard = UIStoryboard(name: "Login", bundle: nil)
+        let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        navigationController?.setViewControllers([loginViewController], animated: true)
+    }
+    
     func navigateToHomeScreen() {
         let storyboard = UIStoryboard(name: "Home", bundle: nil)
         let homeViewController = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
@@ -30,6 +36,20 @@ extension UIViewController {
         addEpisodeViewController.id = showId
         let navigationController = UINavigationController(rootViewController: addEpisodeViewController)
         present(navigationController, animated: true)
+    }
+    
+    func navigateToEpisodeDetailsScreen(episodeId: String) {
+        let storyboard = UIStoryboard(name: "ShowDetails", bundle: nil)
+        let episodeDetailsViewController = storyboard.instantiateViewController(withIdentifier: "EpisodeDetailsViewController") as! EpisodeDetailsViewController
+        episodeDetailsViewController.episodeId = episodeId
+        navigationController?.pushViewController(episodeDetailsViewController, animated: true)
+    }
+    
+    func navigateToEpisodeCommentsScreen(episodeId: String) {
+        let storyboard = UIStoryboard(name: "ShowDetails", bundle: nil)
+        let episodeCommentsViewController = storyboard.instantiateViewController(withIdentifier: "EpisodeCommentsViewController") as! EpisodeCommentsViewController
+        episodeCommentsViewController.episodeId = episodeId
+        navigationController?.pushViewController(episodeCommentsViewController, animated: true)
     }
     
     func showAlert(title: String, message: String) {

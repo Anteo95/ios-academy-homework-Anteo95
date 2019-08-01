@@ -103,6 +103,10 @@ extension ShowDetailsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        if indexPath.row >= 2 {
+            let episodeId = items[indexPath.row - 2].id
+            navigateToEpisodeDetailsScreen(episodeId: episodeId)
+        }
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {

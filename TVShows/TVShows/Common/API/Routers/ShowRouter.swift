@@ -14,12 +14,16 @@ enum ShowRouter: URLRequestConvertible {
     case showDetails(id: String)
     case showEpisodes(id: String)
     case createShowEpisode(parameters: Parameters)
+    case episodeDetails(id: String)
+    case episodeComments(id: String)
+    case createComment(parameters: Parameters)
+    case uploadImage
     
     var method: HTTPMethod {
         switch self {
-        case .shows, .showDetails, .showEpisodes:
+        case .shows, .showDetails, .showEpisodes, .episodeDetails, .episodeComments:
             return .get
-        case .createShowEpisode:
+        case .createShowEpisode, .createComment, .uploadImage:
             return .post
         }
     }
@@ -34,6 +38,14 @@ enum ShowRouter: URLRequestConvertible {
             return "/api/shows/\(id)/episodes"
         case .createShowEpisode:
             return "/api/episodes"
+        case .episodeDetails(let id):
+            return "/api/episodes/\(id)"
+        case .episodeComments(id: let id):
+            return "/api/episodes/\(id)/comments"
+        case .createComment:
+            return "/api/comments"
+        case .uploadImage:
+            return "/api/media"
         }
     }
     
@@ -43,9 +55,9 @@ enum ShowRouter: URLRequestConvertible {
         var urlRequest = try URLRequest(url: Constants.API.baseURL + path, method: method, headers: nil)
         
         switch self {
-        case .shows, .showDetails, .showEpisodes:
+        case .shows, .showDetails, .showEpisodes, .episodeDetails, .episodeComments, .uploadImage:
             urlRequest = try URLEncoding.default.encode(urlRequest, with: nil)
-        case .createShowEpisode(let parameters):
+        case .createShowEpisode(let parameters), .createComment(let parameters):
             urlRequest = try JSONEncoding.default.encode(urlRequest, with: parameters)
         }
         
